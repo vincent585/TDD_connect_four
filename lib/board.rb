@@ -10,6 +10,10 @@ class Board
   def initialize
     @cells = Array.new(6) { Array.new(7, ' ') }
   end
+
+  def full?
+    cells.all? { |row| return true unless row.include?(' ') }
+  end
 end
 
 x = Board.new
