@@ -27,10 +27,6 @@ describe Board do
 
   describe '#full?' do
     context 'when the board is new' do
-      before do
-        board.instance_variable_set(:@cells, Array.new(6) { Array.new(7, ' ') })
-      end
-
       it 'is not full' do
         expect(board).not_to be_full
       end
