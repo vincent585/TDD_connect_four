@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/board'
 
 describe Board do
@@ -22,7 +23,39 @@ describe Board do
   end
 
   describe '#valid_move?' do
-    # TODO
+    context 'when the user inputs a valid move' do
+      it 'is a valid move' do
+        player_move = board.valid_move?(1)
+        expect(player_move).to be true
+      end
+    end
+
+    context 'when choosing a column that is full' do
+      before do
+        board.cells.map { |row| row[0] = 'x' }
+      end
+      it 'is not a valid move' do
+        player_move = board.valid_move?(1)
+        expect(player_move).to be false
+      end
+    end
+
+    context 'when choosing a cell not on the board' do
+      it 'is not a valid move' do
+        player_move = board.valid_move?(10)
+        expect(player_move).to be false
+      end
+    end
+
+    context 'when choosing a column that is partially full' do
+      before do
+        4.times { |i| board.cells[i][0] = 'x' }
+      end
+      it 'is a valid move' do
+        player_move = board.valid_move?(1)
+        expect(player_move).to be true
+      end
+    end
   end
 
   describe '#full?' do
