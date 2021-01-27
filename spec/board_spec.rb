@@ -28,6 +28,42 @@ describe Board do
         expect(updated_cell).to eq('x')
       end
     end
+
+    context 'when the column is partially full' do
+      before do
+        board.cells[5][2] = 'x'
+      end
+
+      it 'updates the next available cell' do
+        player_move = '3'
+        player_marker = 'x'
+        board.update_board(player_move, player_marker)
+        updated_cell = board.cells[4][2]
+        expect(updated_cell).to eq('x')
+      end
+    end
+
+    context 'when the column is full' do
+      before do
+        6.times { |i| board.cells[i][0] = 'x' }
+      end
+
+      it 'does not update the board' do
+        player_move = '1'
+        player_marker = 'x'
+        result = board.update_board(player_move, player_marker)
+        expect(result).to be_nil
+      end
+    end
+
+    context 'when the move is not on the board' do
+      it 'does not update the board' do
+        player_move = '10'
+        player_marker = 'x'
+        result = board.update_board(player_move, player_marker)
+        expect(result).to be_nil
+      end
+    end
   end
 
   describe '#valid_move?' do
