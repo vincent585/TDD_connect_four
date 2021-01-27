@@ -19,7 +19,15 @@ describe Board do
   end
 
   describe '#update_board' do
-    # TODO
+    context 'when the board is new' do
+      it 'updates the board' do
+        player_move = '3'
+        player_marker = 'x'
+        board.update_board(player_move, player_marker)
+        updated_cell = board.cells[5][2]
+        expect(updated_cell).to eq('x')
+      end
+    end
   end
 
   describe '#valid_move?' do
