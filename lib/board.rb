@@ -16,7 +16,7 @@ class Board
   end
 
   def valid_move?(move)
-    return true if move.match?(/^[1-7]{1}$/) && column_not_full?(move)
+    return true if move.match?(/^[1-7]$/) && column_not_full?(move)
 
     false
   end
