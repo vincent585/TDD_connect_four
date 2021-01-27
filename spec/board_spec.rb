@@ -8,11 +8,10 @@ describe Board do
   describe '#game_over?' do
     context 'when there is a horizontal 4-in-a-row' do
       before do
-        board.instance_variable_set(:@cells, Array.new(6) { Array.new(7) })
-        board.cells[5] = ['x', 'x', 'x', 'x', ' ', ' ', ' ']
+        board.cells[5] = %w[x x x x o o o]
       end
 
-      xit 'is game over' do
+      it 'is game over' do
         expect(board).to be_game_over
       end
     end
@@ -111,7 +110,6 @@ describe Board do
 
     context 'when the board is partially played' do
       before do
-        board.instance_variable_set(:@cells, Array.new(6) { Array.new(7, ' ') })
         board.cells[5] = %w[x o x x o x o]
         board.cells[4] = %w[x o x x o x o]
       end

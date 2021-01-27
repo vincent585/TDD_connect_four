@@ -33,4 +33,24 @@ class Board
     first_open_cell = selected_column.rindex(' ')
     @cells[first_open_cell][player_move.to_i - 1] = player_marker
   end
+
+  def game_over?
+    return true if horizontal_win?
+  end
+
+  def horizontal_win?
+    cells.each do |row|
+      next unless row.count(' ') <= 3
+
+      row.each_cons(4) { |a| return true if %w[x x x x].include?(a) || %w[o o o o].include?(a) }
+    end
+  end
+
+  def vertical_win?
+    # TODO
+  end
+
+  def diagonal_win?
+    # TODO
+  end
 end
