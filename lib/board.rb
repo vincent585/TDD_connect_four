@@ -25,4 +25,12 @@ class Board
     transposed = cells.transpose
     transposed[move.to_i - 1].include?(' ')
   end
+
+  def update_board(player_move, player_marker)
+    return nil unless valid_move?(player_move)
+
+    selected_column = cells.transpose[player_move.to_i - 1]
+    first_open_cell = selected_column.rindex(' ')
+    @cells[first_open_cell][player_move.to_i - 1] = player_marker
+  end
 end
