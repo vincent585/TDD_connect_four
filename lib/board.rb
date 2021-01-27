@@ -36,18 +36,29 @@ class Board
 
   def game_over?
     return true if horizontal_win?
+    return true if vertical_win?
+
+    false
   end
 
   def horizontal_win?
+    result = false
     cells.each do |row|
       next unless row.count(' ') <= 3
 
-      row.each_cons(4) { |a| return true if %w[x x x x].include?(a) || %w[o o o o].include?(a) }
+      result = row.each_cons(4) { |a| return true if a.count('x') == 4 || a.count('o') == 4 }
     end
+    result
   end
 
   def vertical_win?
-    # TODO
+    result = false
+    cells.transpose.each do |col|
+      next unless col.count(' ') <= 2
+
+      result = col.each_cons(4) { |a| return true if a.count('x') == 4 || a.count('o') == 4 }
+    end
+    result
   end
 
   def diagonal_win?
