@@ -2,6 +2,8 @@
 
 require './lib/board'
 
+# rubocop:disable Metrics/BlockLength
+
 describe Board do
   subject(:board) { described_class.new }
 
@@ -206,3 +208,5 @@ describe Board do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength
