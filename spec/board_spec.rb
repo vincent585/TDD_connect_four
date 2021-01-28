@@ -15,6 +15,82 @@ describe Board do
         expect(board).to be_game_over
       end
     end
+
+    context 'when there is a vertical 4-in-a-row' do
+      before do
+        4.times { |i| board.cells[i][0] = 'x' }
+      end
+
+      it 'is game over' do
+        expect(board).to be_game_over
+      end
+    end
+
+    context 'when there is a front-facing diagonal 4-in-a-row' do
+      before do
+        board.instance_variable_set(
+          :@cells,
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            %w[o x o o x x o],
+            %w[x x o o x x o],
+            %w[x o x x o o o],
+            %w[o x o x o o x]
+          ]
+        )
+      end
+
+      it 'is game over' do
+        expect(board).to be_game_over
+      end
+    end
+
+    context 'when there is a back-facing diagonal 4-in-a-row' do
+      before do
+        board.instance_variable_set(
+          :@cells,
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            %w[o x o x x x o],
+            %w[x x o o x x o],
+            %w[x o x x o x o],
+            %w[o x o x o o x]
+          ]
+        )
+      end
+
+      it 'is game over' do
+        expect(board).to be_game_over
+      end
+    end
+
+    context 'when the board is new' do
+      it 'is not game over' do
+        expect(board).not_to be_game_over
+      end
+    end
+
+    context 'when the board is partially played' do
+      before do
+        board.instance_variable_set(
+          :@cells,
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            %w[x x o o x x o],
+            %w[x o x x o o o],
+            %w[o x o x o o x]
+          ]
+        )
+      end
+
+      it 'is not game over' do
+        expect(board).not_to be_game_over
+      end
+    end
   end
 
   describe '#update_board' do

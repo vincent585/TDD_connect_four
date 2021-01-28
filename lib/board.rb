@@ -37,6 +37,7 @@ class Board
   def game_over?
     return true if horizontal_win?
     return true if vertical_win?
+    return true if diagonal_win?
 
     false
   end
@@ -62,6 +63,60 @@ class Board
   end
 
   def diagonal_win?
-    # TODO
+    front_diagonals = find_front_diagonals.reject { |a| a.length < 4 }
+    back_diagonals = find_back_diagonals.reject { |a| a.length < 4 }
+
+    return true if front_diagonal_win?(front_diagonals)
+    return true if back_diagonal_win?(back_diagonals)
+
+    false
+  end
+
+  def find_front_diagonals
+    padding = cells.size - 1
+    padded_board = []
+
+    cells.each do |row|
+      inverse_padding = cells.size - padding
+      padded_board << ([nil] * inverse_padding) + row + ([nil] * padding)
+      padding -= 1
+    end
+
+    padded_board.transpose.map(&:compact)
+  end
+
+  def find_back_diagonals
+    padding = cells.size - 1
+    padded_board = []
+
+    cells.each do |row|
+      inverse_padding = cells.size - padding
+      padded_board << ([nil] * padding) + row + ([nil] * inverse_padding)
+      padding -= 1
+    end
+
+    padded_board.transpose.map(&:compact)
+  end
+
+  def front_diagonal_win?(front_diagonals)
+    result = false
+
+    front_diagonals.each do |line|
+      next unless line.count(' ') <= 2
+
+      result = line.each_cons(4) { |a| return true if a.count('x') == 4 || a.count('o') == 4 }
+    end
+    result
+  end
+
+  def back_diagonal_win?(back_diagonals)
+    result = false
+
+    back_diagonals.each do |line|
+      next unless line.count(' ') <= 2
+
+      result = line.each_cons(4) { |a| return true if a.count('x') == 4 || a.count('o') == 4 }
+    end
+    result
   end
 end
