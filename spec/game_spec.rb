@@ -85,6 +85,49 @@ describe Game do
       end
     end
   end
+
+  describe '#set_current_player' do
+    context 'when the current player has not been set' do
+      before do
+        game.instance_variable_set(:@player_one, Player.new(1, "\u2600"))
+        game.instance_variable_set(:@player_two, Player.new(2, "\u2605"))
+      end
+
+      it 'sets a random player' do
+        game.set_current_player
+        current_player = game.current_player
+        expect(current_player).not_to be_nil
+      end
+    end
+
+    context 'when the current player is player one' do
+      before do
+        game.instance_variable_set(:@player_one, Player.new(1, "\u2600"))
+        game.instance_variable_set(:@player_two, Player.new(2, "\u2605"))
+        game.instance_variable_set(:@current_player, game.player_one)
+      end
+
+      it 'sets the current player to player two' do
+        game.set_current_player
+        current_player = game.current_player
+        expect(current_player).to eq(game.player_two)
+      end
+    end
+
+    context 'when the current player is two' do
+      before do
+        game.instance_variable_set(:@player_one, Player.new(1, "\u2600"))
+        game.instance_variable_set(:@player_two, Player.new(2, "\u2605"))
+        game.instance_variable_set(:@current_player, game.player_two)
+      end
+
+      it 'sets the current player to player one' do
+        game.set_current_player
+        current_player = game.current_player
+        expect(current_player).to eq(game.player_one)
+      end
+    end
+  end
 end
 
 # rubocop:enable Metrics/BlockLength

@@ -23,6 +23,12 @@ class Game
     set_player_two
   end
 
+  def set_current_player
+    return @current_player = [player_one, player_two].sample if current_player.nil?
+
+    @current_player = current_player == player_one ? player_two : player_one
+  end
+
   def select_marker
     gets.chomp.to_i
   end
