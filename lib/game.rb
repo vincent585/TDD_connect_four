@@ -16,9 +16,35 @@ class Game
     @current_player = nil
   end
 
+  def play_game
+    instructions
+    set_player_markers
+    set_current_player
+    player_turns
+  end
+
+  def player_turns
+    until board.full?
+      board.show_board
+      player_turn
+      return display_winner_message if board.game_over?
+
+      set_current_player
+    end
+  end
+
+  def player_turn
+    player_turn_prompt
+    board.update_board(select_column, current_player.piece)
+  end
+
+  def select_column
+    gets.chomp.to_i
+  end
+
   def set_player_markers
     player_marker_prompt
-    set_player_one unless player_one
+    set_player_one
     puts 'Great, now Player 2 choose a different marker!'
     set_player_two
   end
@@ -61,3 +87,6 @@ class Game
     end
   end
 end
+
+x = Game.new
+x.play_game

@@ -22,7 +22,11 @@ module Displayable
   end
 
   def display_winner_message
-    puts "#{current_player} wins!"
+    puts "Player #{current_player.number} wins!"
+  end
+
+  def player_turn_prompt
+    puts "Player #{current_player.number}, please choose a column to drop your piece! (1-7)"
   end
 
   def player_marker_prompt

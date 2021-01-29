@@ -98,7 +98,7 @@ describe Board do
   describe '#update_board' do
     context 'when the board is new' do
       it 'updates the board' do
-        player_move = '3'
+        player_move = 3
         player_marker = 'x'
         board.update_board(player_move, player_marker)
         updated_cell = board.cells[5][2]
@@ -112,7 +112,7 @@ describe Board do
       end
 
       it 'updates the next available cell' do
-        player_move = '3'
+        player_move = 3
         player_marker = 'x'
         board.update_board(player_move, player_marker)
         updated_cell = board.cells[4][2]
@@ -126,7 +126,7 @@ describe Board do
       end
 
       it 'does not update the board' do
-        player_move = '1'
+        player_move = 1
         player_marker = 'x'
         result = board.update_board(player_move, player_marker)
         expect(result).to be_nil
@@ -135,7 +135,7 @@ describe Board do
 
     context 'when the move is not on the board' do
       it 'does not update the board' do
-        player_move = '10'
+        player_move = 10
         player_marker = 'x'
         result = board.update_board(player_move, player_marker)
         expect(result).to be_nil
@@ -146,7 +146,7 @@ describe Board do
   describe '#valid_move?' do
     context 'when the user inputs a valid move' do
       it 'is a valid move' do
-        player_move = board.valid_move?('1')
+        player_move = board.valid_move?(1)
         expect(player_move).to be true
       end
     end
@@ -156,14 +156,14 @@ describe Board do
         6.times { |i| board.cells[i][0] = 'x' }
       end
       it 'is not a valid move' do
-        player_move = board.valid_move?('1')
+        player_move = board.valid_move?(1)
         expect(player_move).to be false
       end
     end
 
     context 'when choosing a cell not on the board' do
       it 'is not a valid move' do
-        player_move = board.valid_move?('10')
+        player_move = board.valid_move?(10)
         expect(player_move).to be false
       end
     end
@@ -173,7 +173,7 @@ describe Board do
         4.times { |i| board.cells[i][0] = 'x' }
       end
       it 'is a valid move' do
-        player_move = board.valid_move?('1')
+        player_move = board.valid_move?(1)
         expect(player_move).to be true
       end
     end
