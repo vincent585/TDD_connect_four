@@ -26,7 +26,7 @@ module Displayable
   end
 
   def player_marker_prompt
-    puts 'Please choose one of the following markers: '
+    puts 'Please choose one of the following markers (1-4): '
     show_available_markers
   end
 
