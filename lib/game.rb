@@ -18,11 +18,9 @@ class Game
 
   def set_player_markers
     player_marker_prompt
-    until player_one && player_two
-      set_player_one unless player_one
-      puts 'Great, now Player 2 choose a different marker!'
-      set_player_two
-    end
+    set_player_one unless player_one
+    puts 'Great, now Player 2 choose a different marker!'
+    set_player_two
   end
 
   def select_marker
