@@ -25,6 +25,11 @@ module Displayable
     puts "#{current_player} wins!"
   end
 
+  def player_marker_prompt
+    puts 'Please choose one of the following markers: '
+    show_available_markers
+  end
+
   def instructions
     puts <<-HEREDOC
 
@@ -45,6 +50,6 @@ module Displayable
   end
 
   def show_available_markers
-    AVAILABLE_MARKERS.each { |marker| puts marker }
+    AVAILABLE_MARKERS.each_with_index { |marker, i| puts "#{i + 1}: #{marker}" }
   end
 end
