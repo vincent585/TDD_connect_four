@@ -45,6 +45,6 @@ module Displayable
   end
 
   def show_available_markers
-    AVAILABLE_MARKERS.each { |marker| puts marker.encode('utf-8') }
+    AVAILABLE_MARKERS.each { |marker| puts marker }
   end
 end
