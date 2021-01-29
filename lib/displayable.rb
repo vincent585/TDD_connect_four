@@ -2,6 +2,8 @@
 
 # Displayable methods
 module Displayable
+  AVAILABLE_MARKERS = ["\u2600", "\u2605", "\u2665", "\u2666"].freeze
+
   def show_board
     puts '  1   2   3   4   5   6   7'
     cells.each do |row|
@@ -17,5 +19,32 @@ module Displayable
       print " #{cell}"
       print ' |'
     end
+  end
+
+  def display_winner_message
+    puts "#{current_player} wins!"
+  end
+
+  def instructions
+    puts <<-HEREDOC
+
+          Let's play: Connect Four!
+
+          The rules are as follows:
+
+          Players will alternate dropping markers into the columns.
+          The first player to get 4 of their markers consecutively
+          in a row, column, or diagonal will win the game.
+
+          If neither player has 4 consecutive markers and the board is full,
+          the game will result in a tie!
+
+          Lets begin!
+
+    HEREDOC
+  end
+
+  def show_available_markers
+    AVAILABLE_MARKERS.each { |marker| puts marker.encode('utf-8') }
   end
 end

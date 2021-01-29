@@ -3,4 +3,7 @@
 require './lib/game'
 
 describe Game do
+  subject(:game) { described_class.new }
+
+  describe ''
 end
