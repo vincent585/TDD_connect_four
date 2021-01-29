@@ -21,6 +21,7 @@ class Game
     set_player_markers
     set_current_player
     player_turns
+    board.show_board
   end
 
   def player_turns
@@ -35,7 +36,12 @@ class Game
 
   def player_turn
     player_turn_prompt
-    board.update_board(select_column, current_player.piece)
+    loop do
+      column = board.update_board(select_column, current_player.piece)
+      return if column
+
+      puts 'Please enter a valid column!'
+    end
   end
 
   def select_column
@@ -87,6 +93,3 @@ class Game
     end
   end
 end
-
-x = Game.new
-x.play_game

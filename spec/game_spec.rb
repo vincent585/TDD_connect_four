@@ -7,6 +7,46 @@ require './lib/game'
 describe Game do
   subject(:game) { described_class.new }
 
+  describe '#player_turn' do
+    context 'when the player enters a valid move' do
+      before do
+        game.instance_variable_set(:@player_one, Player.new(1, "\u2600"))
+        game.instance_variable_set(:@player_two, Player.new(2, "\u2605"))
+        game.instance_variable_set(:@current_player, game.player_one)
+        valid_move = 1
+        allow(game).to receive(:puts)
+        allow(game).to receive(:select_column).and_return(valid_move)
+      end
+
+      it 'updates the board' do
+        game.player_turn
+        expect(game.board.cells[5][0]).to eq(game.player_one.piece)
+      end
+    end
+
+    context 'when the player enters an invalid move, then a valid move' do
+      before do
+        game.instance_variable_set(:@player_one, Player.new(1, "\u2600"))
+        game.instance_variable_set(:@player_two, Player.new(2, "\u2605"))
+        game.instance_variable_set(:@current_player, game.player_one)
+        letter = 'x'
+        valid_move = 1
+        allow(game).to receive(:puts)
+        allow(game).to receive(:select_column).and_return(letter, valid_move)
+      end
+
+      it 'displays the error message once then ends loop' do
+        expect(game).to receive(:puts).with('Please enter a valid column!')
+        game.player_turn
+      end
+
+      it 'updates the board' do
+        game.player_turn
+        expect(game.board.cells[5][0]).to eq(game.player_one.piece)
+      end
+    end
+  end
+
   describe '#set_player_one' do
     context 'when a player chooses a valid marker' do
       before do

@@ -16,7 +16,7 @@ class Board
   end
 
   def valid_move?(move)
-    return true if move.between?(1, 7) && column_not_full?(move)
+    return true if move.is_a?(Integer) && move.between?(1, 7) && column_not_full?(move)
 
     false
   end
